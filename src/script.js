@@ -41,7 +41,10 @@ function DisplayProducts() {
   let shoppedItems;
   for (prdct of productList) {
     shoppedItems = document.createElement("li");
-    shoppedItems.innerHTML = `Product Name: ${prdct.productName}, Product Price: ${prdct.price}, Product Quantity: ${prdct.quantity}`;
+    shoppedItems.innerHTML = `${prdct.productName} - ${prdct.price}kr (x${prdct.quantity})`;
+    console.log(
+      `Product Name: ${prdct.productName}, Product Price: ${prdct.price}, Product Quantity: ${prdct.quantity}`
+    );
     cartListUL.append(shoppedItems);
   }
   console.log(productList);
