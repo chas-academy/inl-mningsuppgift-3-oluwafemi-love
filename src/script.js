@@ -3,10 +3,7 @@ let priceInput = document.getElementById("priceInput");
 let addToCartButton = document.getElementById("addButton");
 let cartListUL = document.getElementById("cartList");
 
-// let productName = productInput.value;
-// let productPrice = Number(priceInput.value);
-
-let productList = [{ productName: "0", price: 0, quantity: 0 }];
+let productList = [];
 
 addToCartButton.addEventListener("click", () => {
   //Add Product
@@ -34,17 +31,20 @@ function AddProducts() {
     }
   }
 
-  console.log(newPrdct);
   productList.push(newPrdct);
 }
 
 function DisplayProducts() {
+  // clear the ui before rendering to avoid duplication of renders.
+  cartListUL.innerHTML = "";
+
   let shoppedItems;
   for (prdct of productList) {
     shoppedItems = document.createElement("li");
     shoppedItems.innerHTML = `Product Name: ${prdct.productName}, Product Price: ${prdct.price}, Product Quantity: ${prdct.quantity}`;
     cartListUL.append(shoppedItems);
   }
+  console.log(productList);
 }
 
 // The HTML page that exists with the following elements:
