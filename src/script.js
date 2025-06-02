@@ -18,20 +18,30 @@ addToCartButton.addEventListener("click", () => {
 });
 
 function AddProducts() {
-  let newPrdct = {};
+  let productName = productInput.value.trim();
+  let price = Number(priceInput.value);
 
-  //calling things that doesn't exist as though they were.
-  newPrdct.productName = productInput.value;
-  newPrdct.price = Number(priceInput.value);
-  newPrdct.quantity = 1;
-
-  for (prdct of productList) {
-    if (productInput.value === prdct.productName) {
-      newPrdct.quantity += 1;
-    }
+  if (!productName || isNaN(price)) {
+    alert("Enter the Product Name and price correctly");
+    //todo: if wrong details are inputed it shouldn't render
+    cartListUL.innerText = "";
   }
 
-  productList.push(newPrdct);
+  //ha eleyi sori, fi sere si waju si:
+  let existingProduct = productList.find(
+    (prdct) => prdct.productName === productInput.value
+  );
+
+  if (existingProduct) {
+    existingProduct.quantity += 1;
+    existingProduct.price = price;
+  } else {
+    productList.push({
+      productName: productName,
+      price: price,
+      quantity: 1,
+    });
+  }
 }
 
 function DisplayProducts() {
@@ -39,6 +49,7 @@ function DisplayProducts() {
   cartListUL.innerHTML = "";
 
   let shoppedItems;
+
   for (prdct of productList) {
     shoppedItems = document.createElement("li");
     shoppedItems.innerHTML = `${prdct.productName} - ${prdct.price}kr (x${prdct.quantity})`;
@@ -49,19 +60,3 @@ function DisplayProducts() {
   }
   console.log(productList);
 }
-
-// The HTML page that exists with the following elements:
-// Two input fields (one for the product name and one for price).
-// A button that triggers the function to add the product to the shopping cart.
-// A list showing all products added (shopping cart).
-
-// You should JavaScript file:
-
-// Retrieves entered values ​​from the input fields.
-// Adds objects to an array of type { productName, price, quantity } .
-// Checks if the item already exists in the array (by comparing productName ) – if it already exists, increment quantity by 1.
-// If it is not there, add it to the list.
-// Clears the input fields after a product has been added.
-// Prints (renders) the entire contents of the shopping cart in a list, so that you can see all products, their price and their quantity.
-
-// Test your code by adding multiple products and making sure they display correctly. Also try adding the same product multiple times and verify that the quantity increases instead of creating a new item.
